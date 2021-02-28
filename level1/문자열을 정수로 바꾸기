@@ -1,0 +1,29 @@
+// 문자열을 정수로 바꾸기
+// 문자열 s를 숫자로 변환한 결과를 반환하는 함수, solution을 완성하세요.
+// 2021-02-28
+
+#include <string>
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
+int solution(string s) {
+    int answer = 0;
+    
+    for(int i = 0; i < s.size(); i++){
+        if(s[i] == '-')
+            continue;
+        else if(s[i] == '+')
+            continue;
+        else{
+            answer = answer * 10;
+            answer = answer + (s[i] - 48);
+        }
+    }
+    
+    if(s[0] == '-')
+        answer = answer * (-1);
+    
+    return answer;
+}
