@@ -1,0 +1,45 @@
+// 스킬트리
+// 선행 스킬이란 어떤 스킬을 배우기 전에 먼저 배워야 하는 스킬을 뜻합니다.
+// 선행 스킬 순서 skill과 유저들이 만든 스킬트리1를 담은 배열 skill_trees가 매개변수로 주어질 때, 가능한 스킬트리 개수를 return 하는 solution 함수를 작성해주세요.
+// 2021-08-02
+
+#include <string>
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
+int solution(string skill, vector<string> skill_trees) {
+    int answer = 0;
+    vector<string> temp(skill_trees.size());
+    int correct = 0;
+    
+    for(int i = 0; i < skill_trees.size(); i++) {
+        for(int j = 0; j < skill_trees[i].size(); j++) {
+            for(int k = 0; k < skill.size(); k++) {
+                if(skill[k] == skill_trees[i][j]) {
+                    temp[i].push_back(skill[k]); // 스킬트리에 있는 스킬만 살림
+                }
+            }
+        }
+    }
+    
+    for(int i = 0; i < temp.size(); i++) {
+        if(temp[i].size() == 0)
+            answer++;
+        
+        else {
+            for(int j = 0; j < temp[i].size(); j++) {
+                if(temp[i][j] == skill[j]) {
+                    correct++;
+                }
+            if(correct == temp[i].size()) {
+                answer++;
+                }
+            }       
+            correct = 0;
+        }
+    }
+    
+    return answer;
+}
