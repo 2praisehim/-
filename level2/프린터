@@ -1,0 +1,43 @@
+// 프린터
+// 현재 대기목록에 있는 문서의 중요도가 순서대로 담긴 배열 priorities와 내가 인쇄를 요청한 문서가 현재 대기목록의 어떤 위치에 있는지를 알려주는 location이 매개변수로 주어질 때,
+// 내가 인쇄를 요청한 문서가 몇 번째로 인쇄되는지 return 하도록 solution 함수를 작성해주세요.
+// 2022-01-01
+
+#include <string>
+#include <vector>
+#include <queue>
+#include <algorithm>
+#include <iostream>
+
+using namespace std;
+
+int solution(vector<int> priorities, int location) {
+    int answer = 0;
+    
+    queue<pair<int, int>> que;
+    priority_queue<int> que2;
+    
+    for (int i = 0; i < priorities.size(); i++){
+        que.push(make_pair(i, priorities[i])); // first i second 순위
+        que2.push(priorities[i]);
+    }
+    
+    while(!que.empty()){ // que 비면 끝
+        if (que.front().second == que2.top()){
+            if (que.front().first == location){
+                return answer + 1;
+            }
+            else {
+                answer++;
+                que.pop(); // front가 빠짐
+                que2.pop(); // 최대값 빠짐
+            }
+        }
+        else {
+            que.push(que.front());
+            que.pop();
+        }
+    }
+    
+    return answer;
+}
